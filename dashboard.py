@@ -7,7 +7,7 @@ Build a complete sales dashboard with:
 - KPI metrics row
 - Multiple chart tabs (Overview, By Category, By Region, Data)
 """
-
+import plotly as plt
 import streamlit as st
 import pandas as pd
 import plotly.express as px
