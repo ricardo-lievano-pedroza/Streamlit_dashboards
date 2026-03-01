@@ -7,7 +7,7 @@ Build a complete sales dashboard with:
 - KPI metrics row
 - Multiple chart tabs (Overview, By Category, By Region, Data)
 """
-
+import plotly as plt
 import streamlit as st
 import pandas as pd
 import plotly.express as px
@@ -51,19 +51,19 @@ end_date= st.sidebar.date_input("End date", value = max_date,min_value = min_dat
 #    - Options: all unique categories from the dataset
 #    - Default: all selected
 #
-selected_cateogries = st.sidebar.multiselect("Categories", options = df['category'].unique().tolist())
+selected_cateogries = st.sidebar.multiselect("Categories", options = df['category'].unique().tolist(), default=df['category'].unique().tolist())
 # 3. Regions:
 #    - Use st.sidebar.multiselect
 #    - Options: all unique regions from the dataset
 #    - Default: all selected
 #
-selected_regions = st.sidebar.multiselect("Region", options = df['region'].unique().tolist())
+selected_regions = st.sidebar.multiselect("Region", options = df['region'].unique().tolist(),default=df['region'].unique().tolist())
 
 # 4. Status:
 #    - Use st.sidebar.multiselect
 #    - Options: all unique statuses from the dataset
 #    - Default: all selected
-selected_status = st.sidebar.multiselect("Status", options = df['status'].unique().tolist())
+selected_status = st.sidebar.multiselect("Status", options = df['status'].unique().tolist(),default=df['status'].unique().tolist())
 
 
 
@@ -141,7 +141,7 @@ else:
 #   - Use px.bar with orientation="h"
 #   - Sort by revenue ascending (so highest is at top)
 if len(filtered)>0:
-    category_df = filtered.groupby('category')['Revenue'].sum().reset_index()
+    category_df = filtered.groupby('category')['Revenue'].sum().sort_values(ascending = False).reset_index()
     fig2 = px.bar(category_df,x = 'Revenue',y = 'category', orientation='h',color = 'category')
     tab2.plotly_chart(fig2,use_container_width = True)
 else:
