@@ -159,9 +159,9 @@ else:
 #   - Display the filtered DataFrame with st.dataframe
 #   - Add a download button using st.download_button to export as CSV
 if len(filtered)>0:
-    st.dataframe(filtered,use_container_width=True)
+    tab4.dataframe(filtered,use_container_width=True)
     csv_data = filtered.to_csv(index = False)
-    st.download_button(
+    tab4.download_button(
         label="Download as CSV",
         data =csv_data,
         file_name = 'filtered_sales_data.csv',
